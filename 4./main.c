@@ -32,7 +32,37 @@ void horizontal_hist(const int *hist, int m, int invalid ){
 
 // vertikalny histogram
 void vertical_hist(const int *hist, int m, int invalid){
+    // maximalna vyska
+    int max = 0;
+    for (int i = 0; i < 9; i++) {
+        if (hist[i] > max) {
+            max = hist[i];
+        }
+    }
 
+    if(max > 0){
+        printf("#");
+        for (int i = 0; i < 9; i++) printf(" ");
+        printf("\n");
+    }
+    
+    for (int level = max; level > 0; level--) {
+        printf("#");
+        for (int i = 0; i < 9; i++) {
+            if (hist[i] >= level) {
+                printf("#");
+            } else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+ 
+    printf("i");
+    for (int i = 1; i <= 9; i++) {
+        printf("%d", i);
+    }
+    printf("\n");
 }
 
 int main(){
@@ -59,7 +89,7 @@ int main(){
     if(ch == 'h'){
         horizontal_hist(hist, m, invalid);
     } else if (ch == 'v'){
-    
+        vertical_hist(hist, m, invalid);
     } else {
         printf("Neplatny mod vykresleni\n");
         return 1;
