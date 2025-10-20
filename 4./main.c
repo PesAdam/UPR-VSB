@@ -8,7 +8,7 @@ int pocet(int n){
 }
 
 // horizontalny histogram
-void horizontal_hist(const int *hist, int m, int invalid ){
+void horizontal_hist(int *hist, int m, int invalid ){
     int sirka = pocet(m+8);
     for(int i=0; i < 9; i++){
         printf("%*d", sirka, m + i);
@@ -31,7 +31,7 @@ void horizontal_hist(const int *hist, int m, int invalid ){
 }
 
 // vertikalny histogram
-void vertical_hist(const int *hist, int m, int invalid){
+void vertical_hist(int *hist){
     // maximalna vyska
     int max = 0;
     for (int i = 0; i < 9; i++) {
@@ -89,7 +89,7 @@ int main(){
     if(ch == 'h'){
         horizontal_hist(hist, m, invalid);
     } else if (ch == 'v'){
-        vertical_hist(hist, m, invalid);
+        vertical_hist(hist);
     } else {
         printf("Neplatny mod vykresleni\n");
         return 1;
