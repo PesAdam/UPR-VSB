@@ -36,16 +36,16 @@ int main(void){
     int rows = 0, cols = 0;
     scanf("%d %d", &rows, &cols); // rozmer mriezky
 
-    char *pole = malloc(rows * cols);
+    char *pole = malloc(rows * cols); //dynamicky alokovana pamat
 
     for (int i = 0; i < rows * cols; i++){
          pole[i] = '.';
     }
 
-    int n = 1;
-    int r1 = 0, c1 = 0, dir1 = 0;
-    int r2 = 0, c2 = 0, dir2 = 0;
-    int r3 = 0, c3 = 0, dir3 = 0;
+    int n = 1; //pocet aktivnych korytnaciek
+    int r1 = 0, c1 = 0, dir1 = 0; //poloha a smer prvej korytnacky
+    int r2 = 0, c2 = 0, dir2 = 0; //druha korytnacka
+    int r3 = 0, c3 = 0, dir3 = 0; // tretia korytnacka
 
      /*
      *  prikazy:
@@ -66,13 +66,13 @@ int main(void){
         if (cmd == 'f') { //pridanie korytnaciek
             if (n < 3) {
                 n++;
-                if (n == 2) { r2 = 0; c2 = 0; dir2 = 0; }
+                if (n == 2) { r2 = 0; c2 = 0; dir2 = 0; } //inicializacia dalsej korytnacky
                 if (n == 3) { r3 = 0; c3 = 0; dir3 = 0; }
             }
             continue;
         }
         if (cmd == 'r') { //doprava
-            if (n >= 1) dir1 = (dir1 + 1) % 4;
+            if (n >= 1) dir1 = (dir1 + 1) % 4; 
             if (n >= 2) dir2 = (dir2 + 1) % 4;
             if (n >= 3) dir3 = (dir3 + 1) % 4;
             continue;
@@ -122,7 +122,7 @@ int main(void){
 
         if (cmd == 'o') { // z bodky na o
             if (n >= 1) {
-                int id1 = r1 * cols + c1;
+                int id1 = r1 * cols + c1; //pozicia v poli
                 pole[id1] = (pole[id1] == '.') ? 'o' : '.';
             }
             if (n >= 2) {
