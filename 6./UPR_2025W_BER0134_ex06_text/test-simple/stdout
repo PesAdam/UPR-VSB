@@ -1,0 +1,24 @@
+SIMILAR WAIT
+lowercase: 11 -> 0
+uppercase: 0 -> 11
+spaces: 7 -> 1
+
+TRIP Side Red
+lowercase: 8 -> 5
+uppercase: 3 -> 6
+spaces: 4 -> 2
+
+Wrong
+lowercase: 4 -> 4
+uppercase: 1 -> 1
+spaces: 1 -> 0
+
+Political Next Candidate
+lowercase: 15 -> 19
+uppercase: 7 -> 3
+spaces: 3 -> 2
+
+CULTURE
+lowercase: 7 -> 0
+uppercase: 0 -> 7
+spaces: 4 -> 0

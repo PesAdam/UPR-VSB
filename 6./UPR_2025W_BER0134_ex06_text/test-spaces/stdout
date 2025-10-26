@@ -1,0 +1,39 @@
+X
+lowercase: 1 -> 0
+uppercase: 0 -> 1
+spaces: 4 -> 0
+
+A B C D
+lowercase: 5 -> 0
+uppercase: 0 -> 4
+spaces: 8 -> 3
+
+A B
+lowercase: 2 -> 0
+uppercase: 0 -> 2
+spaces: 8 -> 1
+
+AX
+lowercase: 49 -> 0
+uppercase: 0 -> 2
+spaces: 0 -> 0
+
+A
+lowercase: 46 -> 0
+uppercase: 0 -> 1
+spaces: 3 -> 0
+
+X
+lowercase: 1 -> 0
+uppercase: 0 -> 1
+spaces: 9 -> 0
+
+
+lowercase: 0 -> 0
+uppercase: 0 -> 0
+spaces: 3 -> 0
+
+
+lowercase: 0 -> 0
+uppercase: 0 -> 0
+spaces: 0 -> 0

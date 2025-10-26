@@ -6,16 +6,16 @@
 *   rows, cols - rozmer mriezky
 */
 
-void turtle_right(int *r , int *c, int rows, int cols){
+void turtle_right(int *c, int cols){
     *c = (*c + 1) % cols;
 }
-void turtle_left(int *r, int *c, int rows, int cols){
+void turtle_left(int *c, int cols){
     *c = (*c - 1 + cols) % cols;
 }
-void turtle_up(int *r, int *c, int rows, int cols){
+void turtle_up(int *r, int rows){
     *r = (*r - 1 + rows) % rows;
 }
-void turtle_down(int *r, int *c, int rows, int cols){
+void turtle_down(int *r, int rows){
     *r = (*r + 1) % rows;
 }
 
@@ -72,7 +72,7 @@ int main(void){
             continue;
         }
         if (cmd == 'r') { //doprava
-            if (n >= 1) dir1 = (dir1 + 1) % 4; 
+            if (n >= 1) dir1 = (dir1 + 1) % 4;  // nikdy neprekroci hodnotu 3 (mame 4 smery)
             if (n >= 2) dir2 = (dir2 + 1) % 4;
             if (n >= 3) dir3 = (dir3 + 1) % 4;
             continue;
@@ -86,35 +86,35 @@ int main(void){
         if (cmd == 'm') { //pohyb vsetkych aktivnych o 1
             if (n >= 1) {
                 if (dir1 == 0){ 
-                    turtle_right(&r1, &c1, rows, cols); 
+                    turtle_right(&c1, cols); 
                 } else if (dir1 == 1) {
-                    turtle_down(&r1, &c1, rows, cols);
+                    turtle_down(&r1, rows);
                 } else if (dir1 == 2){ 
-                    turtle_left(&r1, &c1, rows, cols);
+                    turtle_left(&c1,cols);
                 } else {
-                    turtle_up(&r1, &c1, rows, cols);
+                    turtle_up(&r1, rows);
                 }
             }
             if (n >= 2) {
                 if (dir2 == 0) {
-                    turtle_right(&r2, &c2, rows, cols);
+                    turtle_right(&c2, cols);
                 } else if (dir2 == 1) {
-                     turtle_down(&r2, &c2, rows, cols);
+                     turtle_down(&r2, rows);
                 } else if (dir2 == 2) { 
-                    turtle_left(&r2, &c2, rows, cols);
+                    turtle_left(&c2, cols);
                 } else  {
-                    turtle_up(&r2, &c2, rows, cols);
+                    turtle_up(&r2, rows);
                 }
             }
             if (n >= 3) {
                 if (dir3 == 0) {
-                    turtle_right(&r3, &c3, rows, cols);
+                    turtle_right(&c3, cols);
                 } else if (dir3 == 1) { 
-                    turtle_down(&r3, &c3, rows, cols);
+                    turtle_down(&r3, rows);
                 } else if (dir3 == 2) {
-                    turtle_left(&r3, &c3, rows, cols);
+                    turtle_left(&c3, cols);
                 } else {
-                    turtle_up(&r3, &c3, rows, cols);
+                    turtle_up(&r3,rows);
                 }
             }
             continue;
