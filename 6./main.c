@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void normalizeText(char *buff, int *lowercase, int *uppercase, int *spaces, int *lowercaseAfter, int *uppercaseAfter, int *spacesAfter){
+void normalizeText(char *riadok, int *lowercase, int *uppercase, int *spaces, int *lowercaseAfter, int *uppercaseAfter, int *spacesAfter){
     int reading = 0;
     int writing = 0;
     int startedWord = 1;
@@ -16,22 +16,28 @@ void normalizeText(char *buff, int *lowercase, int *uppercase, int *spaces, int 
     *uppercaseAfter = 0;
     *spacesAfter = 0;
 
-    buff[strcspn(buff, "\r\n")] = '\0';
+    riadok[strcspn(riadok, "\r\n")] = '\0'; // odstrani koniec riadka z noveho retazca
 
-    for (int i = 0; buff[i] != '\0'; ++i) {
-        char ch = buff[i];
-        if (ch == ' ') (*spaces)++;
-        else if (ch >= 'a' && ch <= 'z') (*lowercase)++;
-        else if (ch >= 'A' && ch <= 'Z') (*uppercase)++;
+    for (int i = 0; riadok[i] != '\0'; ++i) {
+        char ch = riadok[i]; 
+        if (ch == ' '){
+            (*spaces)++;
+        }else if (ch >= 'a' && ch <= 'z'){
+            (*lowercase)++;
+        }
+        else if (ch >= 'A' && ch <= 'Z') {
+            (*uppercase)++;
+        }
     }
 
-    int wordInfoReady = 0;      
+    // STAVY
+    int wordInfoReady = 0;      // informacie o slove 
     int wordAllLower  = 0;      // slovo ma vsetky pismenka male
     int wordHasLetter = 0;      // slovo obsahuje pismeno
-    int firstLetterDone = 0;    
+    int firstLetterDone = 0;    // prve pismeno bolo spracovane
 
-    while (buff[reading] != '\0'){
-        char ch = buff[reading++];
+    while (riadok[reading] != '\0'){
+        char ch = riadok[reading++];
 
         if (ch == ' '){
             hadSpaces = 1;
@@ -45,7 +51,7 @@ void normalizeText(char *buff, int *lowercase, int *uppercase, int *spaces, int 
 
         // JEDNA medzera len na ZACIATOK ďalsieho slova
         if (hadSpaces && writing > 0 && startedWord) {
-            buff[writing++] = ' ';
+            riadok[writing++] = ' ';
             (*spacesAfter)++;
             hadSpaces = 0;
         }
@@ -53,14 +59,17 @@ void normalizeText(char *buff, int *lowercase, int *uppercase, int *spaces, int 
         // na zaciatku slova zistime ci je cele male alebo obsahuje velke
         if (startedWord && !wordInfoReady){
             int k = reading - 1;
-            int hasU = 0, hasL = 0;
-            while (buff[k] && buff[k] != ' ') {
-                char c2 = buff[k];
-                if (c2 >= 'A' && c2 <= 'Z') hasU = 1;
-                else if (c2 >= 'a' && c2 <= 'z') hasL = 1;
+            int hasU = 0, hasL = 0; // has Uppercase, has Lowercase
+            while (riadok[k] && riadok[k] != ' ') {
+                char c2 = riadok[k];
+                if (c2 >= 'A' && c2 <= 'Z') {
+                    hasU = 1;
+                } else if (c2 >= 'a' && c2 <= 'z') {
+                    hasL = 1;
+                }
                 k++;
             }
-            wordAllLower  = (hasL && !hasU);
+            wordAllLower  = (hasL && !hasU); 
             wordHasLetter = (hasL || hasU);
             wordInfoReady = 1;
             firstLetterDone = 0;
@@ -75,10 +84,14 @@ void normalizeText(char *buff, int *lowercase, int *uppercase, int *spaces, int 
             } else {
                // prve velke a ostatne male (pismenka)
                 if (!firstLetterDone){
-                    if (ch >= 'a' && ch <= 'z') ch = (char)(ch - ('a' - 'A'));
+                    if (ch >= 'a' && ch <= 'z'){
+                        ch = (char)(ch - ('a' - 'A'));
+                    }
                     firstLetterDone = 1;
                 } else {
-                    if (ch >= 'A' && ch <= 'Z') ch = (char)(ch + ('a' - 'A'));
+                    if (ch >= 'A' && ch <= 'Z'){
+                        ch = (char)(ch + ('a' - 'A'));
+                    }
                 }
             }
 
@@ -88,13 +101,16 @@ void normalizeText(char *buff, int *lowercase, int *uppercase, int *spaces, int 
                 continue; 
             }
 
-            buff[writing++] = ch;
+            riadok[writing++] = ch;
             lastChar = ch;
-            if (ch >= 'a' && ch <= 'z') (*lowercaseAfter)++;
-            else if (ch >= 'A' && ch <= 'Z') (*uppercaseAfter)++;
+            if (ch >= 'a' && ch <= 'z') {
+                (*lowercaseAfter)++;
+            } else if (ch >= 'A' && ch <= 'Z'){
+                (*uppercaseAfter)++;
+            } 
         } else {
             // neni pismenko alebo slovo nema pismenka
-            buff[writing++] = ch;
+            riadok[writing++] = ch;
             startedWord = 1;
             lastChar = 0;
             //reset
@@ -102,7 +118,7 @@ void normalizeText(char *buff, int *lowercase, int *uppercase, int *spaces, int 
             firstLetterDone = 0;
         }
     }
-    buff[writing] = '\0';
+    riadok[writing] = '\0';
 }
 
 
@@ -112,20 +128,20 @@ int main(){
     fgets(n, sizeof n, stdin); 
     int num = atoi(n); //strategicky fix
 
-    char buff[51] = {0};
+    char riadok[51] = {0}; // 51 = 50 + '\0'
     
     for (int i = 0; i < num; i++) {          
-        if(!fgets(buff, sizeof buff, stdin)){
+        if(!fgets(riadok, sizeof riadok, stdin)){ // ukladanie riadku
             break;
         }
-        buff[strcspn(buff, "\r\n")] = '\0'; // odstranenie novoradkovych znakov
+        riadok[strcspn(riadok, "\r\n")] = '\0'; // odstranenie novoradkovych znakov
 
         // normalizeText(buff, &lowercase, &uppercase, &spaces, &lowercaseAfter, &uppercaseAfter, &spacesAfter);
         int lcB, ucB, spB, lcA, ucA, spA;
-        normalizeText(buff, &lcB, &ucB, &spB, &lcA, &ucA, &spA);
+        normalizeText(riadok, &lcB, &ucB, &spB, &lcA, &ucA, &spA);
        
         //statistiky radku
-        puts(buff); 
+        puts(riadok); //vypis upraveneho riadku
         printf("lowercase: %d -> %d\n",  lcB, lcA);
         printf("uppercase: %d -> %d\n", ucB, ucA);
         printf("spaces: %d -> %d\n", spB, spA);
