@@ -137,7 +137,12 @@ int main(){
         riadok[strcspn(riadok, "\r\n")] = '\0'; // odstranenie novoradkovych znakov
 
         // normalizeText(buff, &lowercase, &uppercase, &spaces, &lowercaseAfter, &uppercaseAfter, &spacesAfter);
-        int lcB, ucB, spB, lcA, ucA, spA;
+        int lcB = 0; // lowercase Before
+        int ucB = 0; // uppercase Before
+        int spB = 0; // spaces Before
+        int lcA = 0; // lowercase After
+        int ucA = 0; // uppercase After
+        int spA = 0; // spaces After
         normalizeText(riadok, &lcB, &ucB, &spB, &lcA, &ucA, &spA);
        
         //statistiky radku
@@ -146,6 +151,8 @@ int main(){
         printf("uppercase: %d -> %d\n", ucB, ucA);
         printf("spaces: %d -> %d\n", spB, spA);
 
-        if (i != num - 1) putchar('\n');   // prazdny riadok medzi blokmi
+        if (i != num - 1) {
+            putchar('\n');  // prazdny riadok medzi blokmi
+         } 
     }   
 }
