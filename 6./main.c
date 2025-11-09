@@ -9,7 +9,8 @@ void normalizeText(char *riadok, int *lowercase, int *uppercase, int *spaces, in
     char lastChar = 0;
     int hadSpaces = 0;
 
-    *lowercase = 0;
+    //ukazovatele na statistiky 
+    *lowercase = 0; 
     *uppercase = 0;
     *spaces = 0;
     *lowercaseAfter = 0;
@@ -96,7 +97,6 @@ void normalizeText(char *riadok, int *lowercase, int *uppercase, int *spaces, in
             }
 
             startedWord = 0;       
-
             if (lastChar != 0 && ch == lastChar){
                 continue; 
             }
