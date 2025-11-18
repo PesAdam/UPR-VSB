@@ -1,0 +1,5 @@
+--- /Users/belo/Desktop/projects/UPR/8./UPR_2025W_BER0134_ex08_files/test-wrong-arguments-8/stdout
++++ /Users/belo/Desktop/projects/UPR/8./UPR_2025W_BER0134_ex08_files/test-wrong-arguments-8/workdir/actual-stdout
+@@ -1 +1 @@
+-Input path not provided
++Needle not provided
