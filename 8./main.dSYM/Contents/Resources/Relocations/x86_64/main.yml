@@ -1,0 +1,19 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     main
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _searching, symObjAddr: 0x0, symBinAddr: 0x1000011E0, symSize: 0x330 }
+  - { offsetInCU: 0x3B, offset: 0x3B, size: 0x8, addend: 0x0, symName: _.str, symObjAddr: 0xA60, symBinAddr: 0x100001CC0, symSize: 0x0 }
+  - { offsetInCU: 0x66, offset: 0x66, size: 0x8, addend: 0x0, symName: _.str.1, symObjAddr: 0xA80, symBinAddr: 0x100001CE0, symSize: 0x0 }
+  - { offsetInCU: 0x77, offset: 0x77, size: 0x8, addend: 0x0, symName: _.str.2, symObjAddr: 0xAA0, symBinAddr: 0x100001D00, symSize: 0x0 }
+  - { offsetInCU: 0x94, offset: 0x94, size: 0x8, addend: 0x0, symName: _.str.3, symObjAddr: 0xB00, symBinAddr: 0x100001D60, symSize: 0x0 }
+  - { offsetInCU: 0xA5, offset: 0xA5, size: 0x8, addend: 0x0, symName: _.str.4, symObjAddr: 0xB20, symBinAddr: 0x100001D80, symSize: 0x0 }
+  - { offsetInCU: 0xB6, offset: 0xB6, size: 0x8, addend: 0x0, symName: _.str.5, symObjAddr: 0xB80, symBinAddr: 0x100001DE0, symSize: 0x0 }
+  - { offsetInCU: 0xD3, offset: 0xD3, size: 0x8, addend: 0x0, symName: _.str.6, symObjAddr: 0xBC0, symBinAddr: 0x100001E20, symSize: 0x0 }
+  - { offsetInCU: 0xF0, offset: 0xF0, size: 0x8, addend: 0x0, symName: _.str.7, symObjAddr: 0xC00, symBinAddr: 0x100001E60, symSize: 0x0 }
+  - { offsetInCU: 0x10D, offset: 0x10D, size: 0x8, addend: 0x0, symName: _.str.8, symObjAddr: 0xC40, symBinAddr: 0x100001EA0, symSize: 0x0 }
+  - { offsetInCU: 0x11E, offset: 0x11E, size: 0x8, addend: 0x0, symName: _.str.9, symObjAddr: 0xC80, symBinAddr: 0x100001EE0, symSize: 0x0 }
+  - { offsetInCU: 0x13B, offset: 0x13B, size: 0x8, addend: 0x0, symName: _.str.10, symObjAddr: 0xCA0, symBinAddr: 0x100001F00, symSize: 0x0 }
+  - { offsetInCU: 0x14C, offset: 0x14C, size: 0x8, addend: 0x0, symName: _searching, symObjAddr: 0x0, symBinAddr: 0x1000011E0, symSize: 0x330 }
+  - { offsetInCU: 0x1FC, offset: 0x1FC, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x330, symBinAddr: 0x100001510, symSize: 0x6B0 }
+...

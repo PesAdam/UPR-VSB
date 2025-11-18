@@ -8,10 +8,10 @@ void searching(char *buffer, char *search_string, int ignoruj, FILE *out) {
         char *buf_lower = strdup(buffer);
         char *search_lower = strdup(search_string);
         for(int i = 0; buf_lower[i]; i++) {
-            buf_lower[i] = tolower(buf_lower[i]);
+            buf_lower[i] = (char)tolower((unsigned char)buf_lower[i]);
         }
         for(int i = 0; search_lower[i]; i++) {
-            search_lower[i] = tolower(search_lower[i]);
+            search_lower[i] = (char)tolower((unsigned char)search_lower[i]);
         }
         if(strstr(buf_lower, search_lower) != NULL) {
             fprintf(out, "%s", buffer);
@@ -26,18 +26,14 @@ void searching(char *buffer, char *search_string, int ignoruj, FILE *out) {
 }
 
 int main(int argc, char *argv[]) {
-    char *filename = NULL;       
-    char *search_string = NULL; 
-    char *output = NULL;        
+    char *filename = NULL;       // OPRAVA: inicializácia
+    char *search_string = NULL;  // OPRAVA: inicializácia
+    char *output = NULL;         // OPRAVA: inicializácia
     int ignoruj = 0;
-    int i_count = 0;  // pocitadlo pre -i
-    int o_count = 0;  // pocitadlo pre -o
+    int i_count = 0;  // Počítadlo pre -i
+    int o_count = 0;  // Počítadlo pre -o
 
-    if (argc < 3) {
-        printf("Needle not provided\n");
-        return 1;
-    }
-    
+ 
     // OPRAVA: Správny cyklus - prejdi VŠETKY parametre
     for(int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-i") == 0) {
@@ -73,7 +69,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // Kontrola povinných parametrov
+    // Kontrola povinných parametrov - PORADIE JE DÔLEŽITÉ!
+    // Najprv kontroluj filename, potom search_string
     if (filename == NULL) {
         printf("Input path not provided\n");
         return 1;
