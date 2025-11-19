@@ -3,105 +3,114 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-void searching(char *buffer, char *search_string, int ignoruj, FILE *out) {
-    if(ignoruj == 1) {
-        char *buf_lower = strdup(buffer);
-        char *search_lower = strdup(search_string);
-        for(int i = 0; buf_lower[i]; i++) {
-            buf_lower[i] = (char)tolower((unsigned char)buf_lower[i]);
-        }
-        for(int i = 0; search_lower[i]; i++) {
-            search_lower[i] = (char)tolower((unsigned char)search_lower[i]);
-        }
-        if(strstr(buf_lower, search_lower) != NULL) {
-            fprintf(out, "%s", buffer);
-        }
-        free(buf_lower);
-        free(search_lower);
-    } else {
-        if(strstr(buffer, search_string) != NULL) {
-            fprintf(out, "%s", buffer);
-        }
+// funkcia na prevod textu na male pismena
+void to_lower(char *text) {
+    for(int i = 0; text[i]; i++) {
+        text[i] = (char)tolower((unsigned char)text[i]);
     }
 }
 
-int main(int argc, char *argv[]) {
-    char *filename = NULL;       // OPRAVA: inicializácia
-    char *search_string = NULL;  // OPRAVA: inicializácia
-    char *output = NULL;         // OPRAVA: inicializácia
-    int ignoruj = 0;
-    int i_count = 0;  // Počítadlo pre -i
-    int o_count = 0;  // Počítadlo pre -o
+// vyhladavanie textu v riadku
+void search_in_row(char *line, char *text, int ignore_case, FILE *vystup) {
+    if(ignore_case == 0) {
+        // priame porovnanie
+        if(strstr(line, text)) {
+            fprintf(vystup, "%s", line);
+        }
+        return;
+    }
+    
+    // ignorovanie velkosti pismen - potrebujeme kopie
+    char *small_line = strdup(line);
+    char *small_text = strdup(text);
+    
+    to_lower(small_line);
+    to_lower(small_text);
+    
+    if(strstr(small_line, small_text)) {
+        fprintf(vystup, "%s", line);
+    }
+    
+    free(small_line);
+    free(small_text);
+}
 
- 
-    // OPRAVA: Správny cyklus - prejdi VŠETKY parametre
+int main(int argc, char *argv[]) {
+    char *file_path = NULL;       
+    char *wanted_text = NULL;  
+    char *o_file = NULL;        
+    int ignore_case = 0;
+    int num_i = 0;  
+    int num_o = 0;
+
+    // spracovanie parametrov
     for(int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-i") == 0) {
-            i_count++;
-            if(i_count > 1) {
+            num_i++;
+            if(num_i > 1) {
                 printf("Parameter -i provided multiple times\n");
                 return 1;
             }
-            ignoruj = 1;
-        } else if (strcmp(argv[i], "-o") == 0) {
-            o_count++;
-            if(o_count > 1) {
+            ignore_case = 1;
+            continue;
+        }
+        
+        if (strcmp(argv[i], "-o") == 0) {
+            num_o++;
+            if(num_o > 1) {
                 printf("Parameter -o provided multiple times\n");
                 return 1;
             }
-            // OPRAVA: Kontrola, či existuje parameter za -o
             if(i + 1 >= argc) {
                 printf("Missing output path\n");
                 return 1;
             }
-            output = argv[++i];
+            o_file = argv[++i];
+            continue;
+        }
+        
+        // povinne parametre
+        if(file_path == NULL) {
+            file_path = argv[i];
+        } else if(wanted_text == NULL) {
+            wanted_text = argv[i];
         } else {
-            // Povinný parameter (nie flag)
-            if(filename == NULL) {
-                filename = argv[i];
-            } else if(search_string == NULL) {
-                search_string = argv[i];
-            } else {
-                // OPRAVA: Príliš veľa parametrov
-                printf("Too many parameters provided\n");
-                return 1;
-            }
+            printf("Too many parameters provided\n");
+            return 1;
         }
     }
 
-    // Kontrola povinných parametrov - PORADIE JE DÔLEŽITÉ!
-    // Najprv kontroluj filename, potom search_string
-    if (filename == NULL) {
+    // kontrola povinnych parametrov - poradi je dolezite
+    if (file_path == NULL) {
         printf("Input path not provided\n");
         return 1;
     }
     
-    if (search_string == NULL) {
+    if (wanted_text == NULL) {
         printf("Needle not provided\n");
         return 1;
     }
-
-    // OPRAVA: Otvorenie vstupného súboru
-    FILE *file = fopen(filename, "r");
     
-    // OPRAVA: Správne otvorenie výstupného súboru
-    FILE *out = stdout;  // Default je stdout
-    FILE *out_file = NULL;
-    if(output != NULL) {
-        out_file = fopen(output, "w");
-        out = out_file;  // OPRAVA: Priradenie správneho FILE pointra
+    // otvorenie suborov
+    FILE *vstup = fopen(file_path, "r");
+    FILE *vystup = stdout;
+    FILE *subor_vystup = NULL;
+    
+    if(o_file) {
+        subor_vystup = fopen(o_file, "w");
+        vystup = subor_vystup;  
     }
 
-    // OPRAVA: Čítanie zo súboru, nie zo stdin
-    char buffer[101];
-    while(fgets(buffer, sizeof(buffer), file) != NULL) {
-        searching(buffer, search_string, ignoruj, out);
+    // citanie a vyhladavanie po riadkoch
+    char buffer[101] = {0};
+    while(fgets(buffer, sizeof(buffer), vstup)) {
+        search_in_row(buffer, wanted_text, ignore_case, vystup);
     }
 
-    // OPRAVA: Zatvorenie súborov
-    fclose(file);
-    if(out_file != NULL) {
-        fclose(out_file);
+    // zatvorenie suborov
+    fclose(vstup);
+    if(subor_vystup) {
+        fclose(subor_vystup);
     }
     
     return 0;
