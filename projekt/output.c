@@ -2,7 +2,7 @@
 #include "player.h"
 #include "output.h"
 
-// Funkcia na generovanie HTML
+// funkcia na generovanie HTML
 void generate_html(const char *output_file) {
     FILE *file = fopen(output_file, "w");
     if(!file){
@@ -14,7 +14,7 @@ void generate_html(const char *output_file) {
     fprintf(file, "<meta charset=\"UTF-8\">\n");
     fprintf(file, "<title>LoL Statistiky</title>\n");
     fprintf(file, "<style>\n");
-    // Modern Dark Theme CSS
+    //CSS STYLY
     fprintf(file, "body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #1a1a1a; color: #e0e0e0; }\n");
     fprintf(file, ".container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }\n");
     fprintf(file, "table { border-collapse: collapse; margin: 25px 0; width: 100%%; background-color: #2d2d2d; box-shadow: 0 4px 6px rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden; }\n");
@@ -31,7 +31,7 @@ void generate_html(const char *output_file) {
     fprintf(file, "<div class=\"container\">\n");
     fprintf(file, "<h1>League of Legends - Prehľad</h1>\n");
     
-    // Zakladna tabulka
+    // tabulka
     fprintf(file, "<h2>Celkové štatistiky hráčov</h2>\n");
     fprintf(file, "<table>\n");
     fprintf(file, "<tr><th>Prezývka</th><th>Kills</th><th>Assists</th><th>Deaths</th>");
@@ -54,7 +54,7 @@ void generate_html(const char *output_file) {
     
     fprintf(file, "</table>\n");
     
-    // Top 3 hraci podla kills
+    // TOP 3 hraci podla kills
     fprintf(file, "<h2>Top 3 hráči podľa Kills</h2>\n");
     fprintf(file, "<table>\n");
     fprintf(file, "<tr><th>Poradie</th><th>Prezývka</th><th>Kills</th></tr>\n");
@@ -82,7 +82,7 @@ void generate_html(const char *output_file) {
     
     fprintf(file, "</table>\n");
     
-    // Top 3 hraci podla wins
+    // TOP 3 hraci podla wins
     fprintf(file, "<h2>Top 3 hráči podľa Výhier</h2>\n");
     fprintf(file, "<table>\n");
     fprintf(file, "<tr><th>Poradie</th><th>Prezývka</th><th>Výhry</th><th>Úspešnosť</th></tr>\n");

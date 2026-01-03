@@ -4,8 +4,8 @@
 #include "player.h"
 #include "loader.h"
 
-// Funkcia na nacitanie prezdivok
-// Format: ID,prezdivka
+// funkcia na nacitanie prezdivok
+// format: ID,prezdivka
 int load_nicknames(const char *filename) {
     FILE *file = fopen(filename, "r");
     if(!file){
@@ -65,7 +65,7 @@ int load_matches(const char *filename) {
             fclose(file); return 0;
         }
         
-        // Nacitame dalsich 5 riadkov (IDs, Stats, IDs, Stats, Winner)
+        // nacitame dalsich 5 riadkov (IDs, Stats, IDs, Stats, Winner)
         char l1[256], l2[256], l3[256], l4[256], l5[256];
         
         if(!fgets(l1, sizeof(l1), file) || 
@@ -87,7 +87,7 @@ int load_matches(const char *filename) {
         int red_k[3], red_a[3], red_d[3];
         int blue_k[3], blue_a[3], blue_d[3];
         
-        // Parsovanie
+        // parsovanie
         if(sscanf(l1, "%d,%d,%d", &red_ids[0], &red_ids[1], &red_ids[2]) != 3){
             fprintf(stderr, "Chyba formatu ID cerveneho timu\n"); fclose(file); return 0;
         }
@@ -103,7 +103,7 @@ int load_matches(const char *filename) {
              fprintf(stderr, "Chyba formatu statistik modreho timu\n"); fclose(file); return 0;
         }
         
-        // Validacia vitaza
+        // validacia vitaza
         int red_won = 0;
         if(strcmp(l5, "red") == 0){
             red_won = 1;
@@ -114,7 +114,7 @@ int load_matches(const char *filename) {
             fclose(file); return 0;
         }
         
-        // Validacia unikátnosti ID v ramci zapasu
+        // validacia ID v ramci zapasu
         int all_ids[6];
         for(int i=0; i<3; i++) all_ids[i] = red_ids[i];
         for(int i=0; i<3; i++) all_ids[i+3] = blue_ids[i];
@@ -128,8 +128,8 @@ int load_matches(const char *filename) {
             }
         }
         
-        // Ulozenie statistik (a vytvorenie hracov ak neexistuju)
-        // Cerveny tim
+        // ulozenie statistik (a vytvorenie hracov ak neexistuju)
+        // RED tim
         for(int i=0; i<3; i++){
             int idx = find_player(red_ids[i]);
             if(idx == -1) {
@@ -145,7 +145,7 @@ int load_matches(const char *filename) {
             if(red_won) players[idx].wins++; else players[idx].losses++;
         }
         
-        // Modry tim
+        // BLUE tim
         for(int i=0; i<3; i++){
             int idx = find_player(blue_ids[i]);
             if(idx == -1) {
@@ -166,10 +166,10 @@ int load_matches(const char *filename) {
     return 1;
 }
 
-// Validacia dat po nacitani vsetkych suborov
+// validacia dat po nacitani vsetkych suborov
 int validate_data(void) {
     for(int i=0; i < player_count; i++){
-        // Ak hrac hral v nejakom zapase, ale nema priradenu prezdivku (nebol v subore hracov)
+        // akk hrac hral v nejakom zapase, ale nema priradenu prezdivku (nebol v subore hracov)
         if(players[i].games_played > 0 && players[i].has_nickname == 0){
             fprintf(stderr, "Hrac s ID %d v zazname hry chyba v zozname prezdivok\n", players[i].id);
             return 0;

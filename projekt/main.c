@@ -13,22 +13,22 @@ int main(int argc, char* argv[]) {
     const char* players_file = argv[2];
     const char* output_file = argv[3];
     
-    // Nacitaj zapasy
+    // nacitaj zapasy
     if(!load_matches(matches_file)){
         return 1;
     }
     
-    // Nacitaj prezdivky
+    // nacitaj prezdivky
     if(!load_nicknames(players_file)){
         return 1;
     }
     
-    // Validacia dat
+    // validacia dat
     if(!validate_data()){
         return 1;
     }
     
-    // Vygeneruj HTML
+    // vygeneruj HTML
     generate_html(output_file);
     
     printf("Statistiky uspesne vygenerovane do %s\n", output_file);
