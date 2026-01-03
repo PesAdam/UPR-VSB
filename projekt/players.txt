@@ -1,8 +1,9 @@
 1,darksider
 2,yasuo4life
+3,triplekill3
 4,heimerdanger
-8,midlaner
-9,support
-10,toplaner
-13,jungler
-22,adc
+8,osmihrac
+9,devina
+10,desiatka
+13,trinastka
+22,dvadsiatadvojka

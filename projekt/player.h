@@ -15,6 +15,7 @@ typedef struct {
     int losses;
     int red_team_games;
     int blue_team_games;
+    int has_nickname;
 } Player;
 
 extern Player players[MAX_PLAYERS];
