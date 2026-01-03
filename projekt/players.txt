@@ -1,0 +1,8 @@
+1,darksider
+2,yasuo4life
+4,heimerdanger
+8,midlaner
+9,support
+10,toplaner
+13,jungler
+22,adc
